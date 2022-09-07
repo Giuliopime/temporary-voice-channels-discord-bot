@@ -1,5 +1,6 @@
 package space.astrobot.discord.events
 
+import dev.minn.jda.ktx.coroutines.await
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import space.astrobot.db.interactors.GuildsDBI
 import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommandCTX
@@ -19,17 +20,17 @@ suspend fun onSlashCommand(event: SlashCommandInteractionEvent) {
     val guildDto = GuildsDBI.getOrCreate(event.guild!!.id)
     val ctx = SlashCommandCTX(event, guildDto)
 
-    if (ctx.guild.selfMember.hasPermission(slashCommand.requiredBotPermissions)) {
+    if (!ctx.guild.selfMember.hasPermission(slashCommand.requiredBotPermissions)) {
         event.reply("I need to following permissions to be able to run this command:\n" +
                 slashCommand.requiredBotPermissions.joinToString("\n") { it.getName() }
-        )
+        ).queue()
         return
     }
 
-    if (ctx.member.hasPermission(slashCommand.requiredMemberPermissions)) {
+    if (!ctx.member.hasPermission(slashCommand.requiredMemberPermissions)) {
         event.reply("You need to following permissions to be able to run this command:\n" +
                 slashCommand.requiredMemberPermissions.joinToString("\n") { it.getName() }
-        )
+        ).queue()
     }
 
     slashCommand.execute(ctx)

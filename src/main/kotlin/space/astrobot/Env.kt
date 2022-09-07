@@ -11,6 +11,7 @@ object Env {
         lateinit var token: String
         lateinit var activity: String
         var activity_type_key: Int = 3
+        var update_slash_commands: Boolean = true
     }
 
 
@@ -27,6 +28,7 @@ object Env {
         Discord.token = get("discord_token")
         Discord.activity = get("discord_activity")
         Discord.activity_type_key = getInt("discord_activity_type_key")
+        Discord.update_slash_commands = getBoolean("discord_update_slash_commands")
 
         MongoDb.connection_string = get("mongo_connection_string")
         MongoDb.db_name = get("mongo_db_name")
@@ -49,4 +51,6 @@ object Env {
         logger.error { "$path in .env file is not a valid INTEGER value!" }
         throw NoSuchElementException("$path in .env file is not a valid INTEGER value!")
     }
+
+    private fun getBoolean(path: String) = get(path).toBoolean()
 }

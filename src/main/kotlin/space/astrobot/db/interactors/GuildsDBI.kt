@@ -31,19 +31,13 @@ object GuildsDBI {
         FindOneAndReplaceOptions().returnDocument(ReturnDocument.AFTER)
     )
 
-    fun updateValue(id: String, route: String, value: Any?, operator: MongoOperator = MongoOperator.set): GuildDto {
-        return collection.findOneAndUpdate(
-            "{ guildID: ${id.json} }",
-            "{ ${operator}: { \"$route\": ${value?.json} }",
-            FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER)
-        ) ?: throw DbException("`$collectionName` document with ID $id not found while trying to update it")
-    }
+    fun updateValue(id: String, route: String, value: Any?, operator: MongoOperator = MongoOperator.set) = updateValues(id, Pair(route, value), operator = operator)
 
-    fun updateValues(id: String, routeValuePairs: List<Pair<String, Any?>>, operator: MongoOperator = MongoOperator.set): GuildDto {
-        val itemsString = routeValuePairs.joinToString(",") { "\"${it.first}\": ${it.second?.json}" }
+    fun updateValues(id: String, vararg routeValuePair: Pair<String, Any?>, operator: MongoOperator = MongoOperator.set): GuildDto {
+        val itemsString = routeValuePair.asList().joinToString(",") { "\"${it.first}\": ${it.second?.json}" }
 
         return collection.findOneAndUpdate(
-            "{ guildID: ${id.json} }",
+            "{ _id: ${id.json} }",
             "{ ${operator}: { $itemsString } }",
             FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER)
         ) ?: throw DbException("`$collectionName` document with ID $id not found while trying to update it")

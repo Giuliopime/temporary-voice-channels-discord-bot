@@ -20,6 +20,7 @@ object Bot {
 
         EventsManager.manage(jda)
 
-        SlashCommandsManager.uploadCommandsToDiscord()
+        if (Env.Discord.update_slash_commands)
+            SlashCommandsManager.updateOnDiscord()
     }
 }

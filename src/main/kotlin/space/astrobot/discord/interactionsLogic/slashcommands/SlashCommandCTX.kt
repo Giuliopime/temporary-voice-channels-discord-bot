@@ -29,9 +29,6 @@ class SlashCommandCTX(
         val embed = Embed {
             color = guild.selfMember.colorRaw
             description = message
-            footer {
-                name = "Astro Devlog YouTube serie"
-            }
         }
 
         val actionRowsList = actionRows.asList()

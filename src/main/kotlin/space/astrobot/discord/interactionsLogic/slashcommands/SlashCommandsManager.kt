@@ -46,7 +46,7 @@ object SlashCommandsManager {
         logger.info { "Found and initialized ${commands.size} slash commands" }
     }
 
-    suspend fun uploadCommandsToDiscord() {
+    suspend fun updateOnDiscord() {
         Bot.jda.updateCommands().addCommands(
             commands.filter { it.parentSlashCommand == null }.map { slashCommand ->
                 val slashCommandData = Commands.slash(slashCommand.name, slashCommand.description)
