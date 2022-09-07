@@ -1,17 +1,17 @@
-package space.astro_bot.db.managers
+package space.astrobot.db.interactors
 
 import com.mongodb.client.model.FindOneAndReplaceOptions
 import com.mongodb.client.model.FindOneAndUpdateOptions
 import com.mongodb.client.model.ReturnDocument
 import mu.KotlinLogging
 import org.litote.kmongo.*
-import space.astro_bot.db.MongoClient
-import space.astro_bot.exceptions.DbException
-import space.astro_bot.models.GuildDto
+import space.astrobot.db.MongoClient
+import space.astrobot.exceptions.DbException
+import space.astrobot.models.GuildDto
 
 private val logger = KotlinLogging.logger {}
 
-object GuildsDbManager {
+object GuildsDBI {
     val collectionName = "guilds"
     val collection = MongoClient.getDb().getCollection<GuildDto>(collectionName)
 

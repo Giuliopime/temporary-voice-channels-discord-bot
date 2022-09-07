@@ -20,6 +20,9 @@ dependencies {
     implementation("org.litote.kmongo:kmongo:4.7.0")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+    implementation("com.aventrix.jnanoid:jnanoid:2.0.0")
+    implementation("ch.qos.logback:logback-classic:1.4.0")
+    implementation("org.reflections:reflections:0.10.2")
 }
 
 tasks.withType<KotlinCompile> {

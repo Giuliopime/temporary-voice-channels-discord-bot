@@ -1,4 +1,4 @@
-package space.astro_bot.exceptions
+package space.astrobot.exceptions
 
 class DbException: Exception {
     constructor(message: String) : super(message)

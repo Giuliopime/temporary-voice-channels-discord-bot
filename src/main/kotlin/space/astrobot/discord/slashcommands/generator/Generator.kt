@@ -1,12 +1,11 @@
-package space.astro_bot.slash_commands.generator
+package space.astrobot.discord.slashcommands.generator
 
 import net.dv8tion.jda.api.Permission
-import space.astro_bot.slash_commands.SlashCommand
-import space.astro_bot.slash_commands.SlashCommandCTX
+import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommand
 
 class Generator: SlashCommand(
     name = "generator",
     description = "Parent command for all generator commands",
     requiredBotPermissions = listOf(Permission.MANAGE_CHANNEL),
-    requiredMemberPermissions = listOf(Permission.MANAGE_CHANNEL)
+    requiredMemberPermissions = listOf(Permission.ADMINISTRATOR)
 )

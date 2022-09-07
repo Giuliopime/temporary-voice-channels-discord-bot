@@ -1,12 +1,14 @@
-package space.astro_bot.slash_commands.generator
+package space.astrobot.discord.slashcommands.generator
 
 import dev.minn.jda.ktx.coroutines.await
 import net.dv8tion.jda.api.entities.Category
 import net.dv8tion.jda.api.entities.ChannelType
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
-import space.astro_bot.slash_commands.SlashCommand
-import space.astro_bot.slash_commands.SlashCommandCTX
+import space.astrobot.db.interactors.GuildsDBI
+import space.astrobot.models.GeneratorDto
+import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommand
+import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommandCTX
 
 class Create: SlashCommand(
     name = "create",
@@ -26,6 +28,8 @@ class Create: SlashCommand(
 
         val generator = action.await()
 
+        GuildsDBI.pushValue(ctx.guildId, "generators", GeneratorDto(generator.id))
 
+        ctx.reply("You can now create temporary voice channels by joining ${generator.asMention}!")
     }
 }

@@ -1,4 +1,4 @@
-package space.astro_bot
+package space.astrobot
 
 import io.github.cdimascio.dotenv.dotenv
 import mu.KotlinLogging
@@ -15,7 +15,7 @@ object Env {
 
 
     object MongoDb {
-        lateinit var mongo_connection_string: String
+        lateinit var connection_string: String
         lateinit var db_name: String
     }
 
@@ -28,7 +28,7 @@ object Env {
         Discord.activity = get("discord_activity")
         Discord.activity_type_key = getInt("discord_activity_type_key")
 
-        MongoDb.mongo_connection_string = get("mongo_connection_string")
+        MongoDb.connection_string = get("mongo_connection_string")
         MongoDb.db_name = get("mongo_db_name")
     }
 

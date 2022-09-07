@@ -1,4 +1,4 @@
-package space.astro_bot.slash_commands
+package space.astrobot.discord.interactionsLogic.slashcommands
 
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
@@ -19,4 +19,6 @@ abstract class SlashCommand(
 
     val requiredMemberPermissions: List<Permission> = parentSlashCommand?.requiredMemberPermissions ?: emptyList(),
     val requiredBotPermissions: List<Permission> = parentSlashCommand?.requiredBotPermissions ?: emptyList()
-): ExecutableSlashCommand
+): ExecutableSlashCommand {
+    val path = (parentSlashCommand?.name?.plus("/") ?: "") + name
+}

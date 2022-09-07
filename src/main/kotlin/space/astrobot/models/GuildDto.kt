@@ -1,4 +1,4 @@
-package space.astro_bot.models
+package space.astrobot.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class GuildDto(
     @SerialName("_id")
     val id: String,
-    val generators: List<GeneratorDto> = emptyList()
+    val generators: MutableList<GeneratorDto> = mutableListOf()
 )
 
 @Serializable

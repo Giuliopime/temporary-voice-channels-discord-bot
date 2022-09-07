@@ -1,4 +1,4 @@
-package space.astro_bot.events
+package space.astrobot.discord.events
 
 import dev.minn.jda.ktx.events.listener
 import net.dv8tion.jda.api.JDA
