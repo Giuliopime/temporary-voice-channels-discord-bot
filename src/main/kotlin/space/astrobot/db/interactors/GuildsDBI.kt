@@ -3,15 +3,14 @@ package space.astrobot.db.interactors
 import com.mongodb.client.model.FindOneAndReplaceOptions
 import com.mongodb.client.model.FindOneAndUpdateOptions
 import com.mongodb.client.model.ReturnDocument
-import mu.KotlinLogging
 import org.litote.kmongo.*
 import space.astrobot.db.MongoClient
 import space.astrobot.exceptions.DbException
 import space.astrobot.models.GuildDto
 
 object GuildsDBI {
-    val collectionName = "guilds"
-    val collection = MongoClient.getDb().getCollection<GuildDto>(collectionName)
+    private const val collectionName = "guilds"
+    private val collection = MongoClient.getDb().getCollection<GuildDto>(collectionName)
 
     private fun create(id: String): GuildDto {
         val document = GuildDto(id)
