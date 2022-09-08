@@ -14,9 +14,9 @@ object Bot {
     suspend fun start() {
         jda = JDABuilder.createDefault(Env.Discord.token)
             .setActivity(of(ActivityType.fromKey(Env.Discord.activity_type_key), Env.Discord.activity))
-            .injectKTX()
+            .injectKTX() // Injects JDA-KTX library
             .build()
-            .awaitReady()
+            .awaitReady() // Waits until JDA finishes loading
 
         EventsManager.manage(jda)
 

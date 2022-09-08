@@ -5,8 +5,12 @@ import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
+/**
+ * Contains all the environment variables
+ */
 object Env {
     private val dotenv = dotenv()
+
     object Discord {
         lateinit var token: String
         lateinit var activity: String

@@ -21,6 +21,7 @@ class SlashCommandCTX(
     val userId = user.id
     val member = event.member!!
 
+    // Needed to be able to send one reply and then edit it as needed instead of sending new ones each time
     private var interactionHook: InteractionHook? = null
 
     inline fun <reified T> getOption(name: String): T? = event.getOption<T>(name)
@@ -33,12 +34,15 @@ class SlashCommandCTX(
 
         val actionRowsList = actionRows.asList()
 
+        // If the bot still haven't replied to this command then reply normally
         if (interactionHook == null) {
             val action = event.replyEmbeds(embed).setEphemeral(ephemeral)
             if (actionRowsList.isNotEmpty())
                 action.setComponents(actionRowsList)
+            // Save the hook to later edit the reply if needed
             interactionHook = action.await()
         } else {
+            // If a reply has already been sent it needs to be edited instead
             interactionHook?.editOriginalEmbeds(embed)?.setComponents(actionRowsList)?.await()
         }
     }

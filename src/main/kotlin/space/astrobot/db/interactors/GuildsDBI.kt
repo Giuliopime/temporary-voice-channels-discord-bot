@@ -9,8 +9,6 @@ import space.astrobot.db.MongoClient
 import space.astrobot.exceptions.DbException
 import space.astrobot.models.GuildDto
 
-private val logger = KotlinLogging.logger {}
-
 object GuildsDBI {
     val collectionName = "guilds"
     val collection = MongoClient.getDb().getCollection<GuildDto>(collectionName)
