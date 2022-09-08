@@ -2,8 +2,10 @@ package space.astrobot
 
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.LoggerContext
+import mu.KotlinLogging
 import org.slf4j.LoggerFactory
 import space.astrobot.db.MongoClient
+import space.astrobot.exceptions.DbException
 import kotlin.system.exitProcess
 
 suspend fun main() {

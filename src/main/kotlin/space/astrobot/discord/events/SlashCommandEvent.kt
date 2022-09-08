@@ -1,5 +1,6 @@
 package space.astrobot.discord.events
 
+import dev.minn.jda.ktx.coroutines.await
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import space.astrobot.db.interactors.GuildsDBI
 import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommandCTX

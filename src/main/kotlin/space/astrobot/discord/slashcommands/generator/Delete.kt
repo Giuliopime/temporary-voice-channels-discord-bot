@@ -23,10 +23,14 @@ class Delete: SlashCommand(
         val menu = SelectMenu(
             customId = IdManager.get(),
             placeholder = "Select the generator to delete",
-            options = generators.mapIndexed { index, generatorDto -> SelectOption(
-                label = "${index + 1}) <@${generatorDto.id}>",
-                value = index.toString()
-            )}
+            options = generators.mapIndexed { index, generatorDto ->
+                val generatorChannel = ctx.guild.getVoiceChannelById(generatorDto.id)
+                SelectOption(
+                    label = "${index + 1}) ${generatorChannel?.name ?: "Deleted channel"}",
+                    description = if (generatorChannel?.parentCategory != null) "From the ${generatorChannel.parentCategory!!.name} category" else "Not in a category",
+                    value = index.toString()
+                )
+            }
         )
 
         ctx.reply("Select the generator to delete with the menu below\n(You have 60 seconds)", ActionRow.of(menu))

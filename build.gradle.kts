@@ -19,12 +19,12 @@ repositories {
 dependencies {
     implementation("net.dv8tion:JDA:5.0.0-alpha.18")
     implementation("com.github.minndevelopment:jda-ktx:081a177")
-    implementation("com.aventrix.jnanoid:jnanoid:2.0.0")
     implementation("io.github.cdimascio:dotenv-kotlin:6.3.1")
-    implementation("org.litote.kmongo:kmongo-serialization:4.7.0")
-    implementation("org.reflections:reflections:0.10.2")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
     implementation("ch.qos.logback:logback-classic:1.4.0")
+    implementation("org.litote.kmongo:kmongo-serialization:4.7.0")
+    implementation("com.aventrix.jnanoid:jnanoid:2.0.0")
+    implementation("org.reflections:reflections:0.10.2")
 }
 
 tasks.withType<KotlinCompile> {
