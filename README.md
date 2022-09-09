@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://astro-bot.space"><img src="https://i.ibb.co/WBZXpNN/main.png" alt="Astro Devlog"></a>
+  <a href="https://youtube.com/playlist?list=PLlBwM_A4TFwhyw0Lw0YxMH3qrG7-GbG1f"><img src="https://i.ibb.co/WBZXpNN/main.png" alt="Astro Devlog"></a>
   <br>
 </h1>
 
