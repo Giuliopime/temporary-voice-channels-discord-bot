@@ -2,6 +2,7 @@ package space.astrobot.discord.interactionsLogic.slashcommands
 
 import dev.minn.jda.ktx.coroutines.await
 import mu.KotlinLogging
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData
 import org.reflections.Reflections
@@ -51,6 +52,8 @@ object SlashCommandsManager {
             // First find all top-level commands
             commands.filter { it.parentSlashCommand == null }.map { slashCommand ->
                 val slashCommandData = Commands.slash(slashCommand.name, slashCommand.description)
+                    .setDefaultPermissions(DefaultMemberPermissions.enabledFor(slashCommand.requiredMemberPermissions))
+
                 if (slashCommand.options.isNotEmpty())
                     slashCommandData.addOptions(slashCommand.options)
                 else {

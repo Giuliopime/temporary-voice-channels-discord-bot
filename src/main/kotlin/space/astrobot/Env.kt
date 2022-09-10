@@ -24,6 +24,11 @@ object Env {
         lateinit var db_name: String
     }
 
+    object Redis {
+        lateinit var host: String
+        var port = 6379
+    }
+
     init {
         loadEnv()
     }
@@ -36,6 +41,9 @@ object Env {
 
         MongoDb.connection_string = get("mongo_connection_string")
         MongoDb.db_name = get("mongo_db_name")
+
+        Redis.host = get("redis_host")
+        Redis.port = getInt("redis_port")
     }
 
     private fun get(path: String): String {

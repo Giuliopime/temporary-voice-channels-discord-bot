@@ -25,6 +25,8 @@ dependencies {
     implementation("org.litote.kmongo:kmongo-serialization:4.7.0")
     implementation("com.aventrix.jnanoid:jnanoid:2.0.0")
     implementation("org.reflections:reflections:0.10.2")
+    implementation("redis.clients:jedis:4.3.0-m1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
 }
 
 tasks.withType<KotlinCompile> {

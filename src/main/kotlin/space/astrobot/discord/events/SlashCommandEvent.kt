@@ -34,12 +34,5 @@ suspend fun onSlashCommand(event: SlashCommandInteractionEvent) {
         return
     }
 
-    // Check if the member that triggered the command has permissions to use it
-    if (!ctx.member.hasPermission(slashCommand.requiredMemberPermissions)) {
-        event.reply("You need to following permissions to be able to run this command:\n" +
-                slashCommand.requiredMemberPermissions.joinToString("\n") { it.getName() }
-        ).queue()
-    }
-
     slashCommand.execute(ctx)
 }
