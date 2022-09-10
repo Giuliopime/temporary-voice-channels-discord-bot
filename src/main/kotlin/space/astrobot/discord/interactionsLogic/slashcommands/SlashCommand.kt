@@ -15,6 +15,7 @@ abstract class SlashCommand(
     val description: String,
 
     val parentSlashCommand: SlashCommand? = null,
+    val category: SlashCommandCategory = parentSlashCommand?.category ?: SlashCommandCategory.NONE,
 
     val options: List<OptionData> = emptyList(),
 

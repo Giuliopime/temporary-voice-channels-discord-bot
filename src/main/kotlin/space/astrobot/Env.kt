@@ -16,6 +16,7 @@ object Env {
         lateinit var activity: String
         var activity_type_key: Int = 3
         var update_slash_commands: Boolean = true
+        lateinit var working_guild_id: String
     }
 
 
@@ -38,6 +39,7 @@ object Env {
         Discord.activity = get("discord_activity")
         Discord.activity_type_key = getInt("discord_activity_type_key")
         Discord.update_slash_commands = getBoolean("discord_update_slash_commands")
+        Discord.working_guild_id = get("discord_working_guild_id")
 
         MongoDb.connection_string = get("mongo_connection_string")
         MongoDb.db_name = get("mongo_db_name")

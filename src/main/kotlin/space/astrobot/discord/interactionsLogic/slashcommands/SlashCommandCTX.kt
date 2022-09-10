@@ -3,14 +3,17 @@ package space.astrobot.discord.interactionsLogic.slashcommands
 import dev.minn.jda.ktx.coroutines.await
 import dev.minn.jda.ktx.interactions.components.getOption
 import dev.minn.jda.ktx.messages.Embed
+import net.dv8tion.jda.api.entities.VoiceChannel
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.InteractionHook
 import net.dv8tion.jda.api.interactions.components.ActionRow
 import space.astrobot.models.GuildDto
+import space.astrobot.models.TempVCDto
 
 class SlashCommandCTX(
     val event: SlashCommandInteractionEvent,
-    val guildDto: GuildDto
+    val guildDto: GuildDto,
+    val tempVCDto: TempVCDto? = null
 ) {
     val guild = event.guild!!
     val guildId = guild.id
@@ -46,4 +49,7 @@ class SlashCommandCTX(
             interactionHook?.editOriginalEmbeds(embed)?.setComponents(actionRowsList)?.await()
         }
     }
+
+    // Only use if in SlashCommandCategory.VC
+    fun getVoiceChannel() = member.voiceState!!.channel!! as VoiceChannel
 }

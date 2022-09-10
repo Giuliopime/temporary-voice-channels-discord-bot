@@ -1,10 +1,11 @@
 package space.astrobot.discord.events
 
-import dev.minn.jda.ktx.coroutines.await
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import space.astrobot.db.interactors.GuildsDBI
 import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommandCTX
+import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommandCategory
 import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommandsManager
+import space.astrobot.redis.TempVoiceChannelsRI
 
 suspend fun onSlashCommand(event: SlashCommandInteractionEvent) {
     // Do not listen to DMs
@@ -24,15 +25,37 @@ suspend fun onSlashCommand(event: SlashCommandInteractionEvent) {
 
     // Gets the guild settings from the database
     val guildDto = GuildsDBI.getOrCreate(event.guild!!.id)
-    val ctx = SlashCommandCTX(event, guildDto)
 
     // Check if the bot has the required permissions
-    if (!ctx.guild.selfMember.hasPermission(slashCommand.requiredBotPermissions)) {
+    if (!event.guild!!.selfMember.hasPermission(slashCommand.requiredBotPermissions)) {
         event.reply("I need to following permissions to be able to run this command:\n" +
                 slashCommand.requiredBotPermissions.joinToString("\n") { it.getName() }
         ).queue()
         return
     }
+
+    val ctx = if (slashCommand.category == SlashCommandCategory.VC) {
+        val member = event.member!!
+        val activeTempVoiceChannels = TempVoiceChannelsRI.getAllFromGuild(event.guild!!.id)
+        val tempVoiceChannelIndex = activeTempVoiceChannels.indexOfFirst { it.id == member.voiceState!!.channel?.id }
+
+        if (tempVoiceChannelIndex == -1) {
+            event.reply("You need to be in a temporary voice channel to use this command!")
+                .setEphemeral(true)
+                .queue()
+            return
+        }
+
+        if (activeTempVoiceChannels[tempVoiceChannelIndex].ownerId != event.user.id) {
+            event.reply("You are not the owner of this temporary voice channel!" +
+                    "\nThe owner is <@${activeTempVoiceChannels[tempVoiceChannelIndex].ownerId}>")
+                .setEphemeral(true)
+                .queue()
+        }
+
+        SlashCommandCTX(event, guildDto, activeTempVoiceChannels[tempVoiceChannelIndex])
+    } else
+        SlashCommandCTX(event, guildDto)
 
     slashCommand.execute(ctx)
 }

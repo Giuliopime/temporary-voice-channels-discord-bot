@@ -5,7 +5,6 @@ import ch.qos.logback.classic.LoggerContext
 import mu.KotlinLogging
 import org.slf4j.LoggerFactory
 import space.astrobot.db.MongoClient
-import space.astrobot.exceptions.DbException
 import space.astrobot.redis.RedisClient
 import kotlin.system.exitProcess
 

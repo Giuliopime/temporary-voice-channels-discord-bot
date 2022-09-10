@@ -6,9 +6,9 @@ import net.dv8tion.jda.api.entities.ChannelType
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
 import space.astrobot.db.interactors.GuildsDBI
-import space.astrobot.models.GeneratorDto
 import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommand
 import space.astrobot.discord.interactionsLogic.slashcommands.SlashCommandCTX
+import space.astrobot.models.GeneratorDto
 
 class Create: SlashCommand(
     name = "create",

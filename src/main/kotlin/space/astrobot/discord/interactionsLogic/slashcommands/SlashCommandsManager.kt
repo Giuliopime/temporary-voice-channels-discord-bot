@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData
 import org.reflections.Reflections
 import space.astrobot.Bot
+import space.astrobot.Env
 
 private val logger = KotlinLogging.logger {}
 
@@ -48,11 +49,20 @@ object SlashCommandsManager {
     }
 
     suspend fun updateOnDiscord() {
-        Bot.jda.updateCommands().addCommands(
+        val action = if (Env.Discord.working_guild_id.lowercase() == "any")
+            Bot.jda.updateCommands()
+        else
+            Bot.jda.getGuildById(Env.Discord.working_guild_id)?.updateCommands() ?: let {
+                logger.error { "Working guild ID not valid" }
+                throw NoSuchElementException()
+            }
+
+        action.addCommands(
             // First find all top-level commands
             commands.filter { it.parentSlashCommand == null }.map { slashCommand ->
                 val slashCommandData = Commands.slash(slashCommand.name, slashCommand.description)
                     .setDefaultPermissions(DefaultMemberPermissions.enabledFor(slashCommand.requiredMemberPermissions))
+                    .setGuildOnly(true)
 
                 if (slashCommand.options.isNotEmpty())
                     slashCommandData.addOptions(slashCommand.options)
@@ -63,7 +73,8 @@ object SlashCommandsManager {
                             SubcommandData(
                                 subCommand.name,
                                 subCommand.description
-                            ).addOptions(subCommand.options)
+                            )
+                                .addOptions(subCommand.options)
                         }
                     )
                 }
