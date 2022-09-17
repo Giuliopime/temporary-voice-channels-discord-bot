@@ -9,7 +9,9 @@ private val logger = KotlinLogging.logger {}
  * Contains all the environment variables
  */
 object Env {
-    private val dotenv = dotenv()
+    private val dotenv = dotenv {
+        ignoreIfMissing = true
+    }
 
     object Discord {
         lateinit var token: String
