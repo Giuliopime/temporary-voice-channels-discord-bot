@@ -4,6 +4,8 @@ plugins {
     kotlin("jvm") version "1.7.10"
     // KotlinX Serialization
     kotlin("plugin.serialization") version "1.7.10"
+    // .jar with libraries creation
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 // Astro domain name reversed (original: https://astro-bot.space)
@@ -31,4 +33,20 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks {
+    withType(JavaCompile::class) {
+        options.encoding = "UTF-8"
+    }
+
+    shadowJar {
+        archiveFileName.set("astro-devlog.jar")
+    }
+}
+
+tasks {
+    build {
+        dependsOn(shadowJar)
+    }
 }

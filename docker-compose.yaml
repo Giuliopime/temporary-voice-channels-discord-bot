@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  astro-devlog:
+    image: ghcr.io/giuliopime/astro-devlog:latest
+    container_name: "astro-devlog"
+    depends_on:
+      - astro-devlog-redis
+      - astro-devlog-mongodb
+    env_file:
+      - .env
+    networks:
+      - astro-devlog-network
+  todo-reminder-redis:
+    image: redis:7.0.4
+    container_name: "astro-devlog-redis"
+    restart: always
+    command: redis-server
+    networks:
+      - astro-devlog-network
+  todo-reminder-mongodb:
+    image: mongo:6.0.1
+    container_name: "astro-devlog-mongodb"
+    restart: always
+    volumes:
+      - db-data:/data/db # This is the default location for mongodb data storing
+    networks:
+      - astro-devlog-network
+
+volumes:
+  db-data:
+
+networks:
+  astro-devlog-network:
+    name: astro-devlog-network
