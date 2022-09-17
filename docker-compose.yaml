@@ -5,7 +5,7 @@ services:
     container_name: "astro-devlog"
     depends_on:
       - astro-devlog-redis
-      - astro-devlog-mongodb
+      - astro-devlog-mongo
     env_file:
       - .env
     networks:
@@ -17,9 +17,9 @@ services:
     command: redis-server
     networks:
       - astro-devlog-network
-  todo-reminder-mongodb:
+  todo-reminder-mongo:
     image: mongo:6.0.1
-    container_name: "astro-devlog-mongodb"
+    container_name: "astro-devlog-mongo"
     restart: always
     volumes:
       - db-data:/data/db # This is the default location for mongodb data storing
