@@ -10,14 +10,14 @@ services:
       - .env
     networks:
       - astro-devlog-network
-  todo-reminder-redis:
+  astro-devlog-redis:
     image: redis:7.0.4
     container_name: "astro-devlog-redis"
     restart: always
     command: redis-server
     networks:
       - astro-devlog-network
-  todo-reminder-mongo:
+  astro-devlog-mongo:
     image: mongo:6.0.1
     container_name: "astro-devlog-mongo"
     restart: always
