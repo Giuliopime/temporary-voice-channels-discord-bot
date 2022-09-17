@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("application")
+
     kotlin("jvm") version "1.7.10"
     // KotlinX Serialization
     kotlin("plugin.serialization") version "1.7.10"
@@ -10,6 +12,7 @@ plugins {
 
 // Astro domain name reversed (original: https://astro-bot.space)
 group = "space.astro-bot"
+application.mainClass.set("space.astrobot.LauncherKt")
 version = "1.0"
 
 repositories {

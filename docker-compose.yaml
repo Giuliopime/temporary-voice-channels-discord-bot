@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   astro-devlog:
-    image: ghcr.io/giuliopime/astro-devlog:latest
+    image: ghcr.io/giuliopime/temporary-voice-channels-discord-bot:latest
     container_name: "astro-devlog"
     depends_on:
       - astro-devlog-redis
