@@ -16,7 +16,7 @@ suspend fun onSlashCommand(event: SlashCommandInteractionEvent) {
     A command which is not present in the code can be still be present on Discord
     if the bot hasn't updated the commands yet
      */
-    val slashCommand = SlashCommandsManager.get(event.commandPath) ?: run {
+    val slashCommand = SlashCommandsManager.get(event.fullCommandName) ?: run {
         event.reply("This command is not available anymore as it's outdated.")
             .setEphemeral(true)
             .queue()

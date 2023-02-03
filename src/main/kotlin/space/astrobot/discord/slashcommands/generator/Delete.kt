@@ -2,10 +2,10 @@ package space.astrobot.discord.slashcommands.generator
 
 import dev.minn.jda.ktx.coroutines.await
 import dev.minn.jda.ktx.events.await
-import dev.minn.jda.ktx.interactions.components.SelectMenu
 import dev.minn.jda.ktx.interactions.components.SelectOption
+import dev.minn.jda.ktx.interactions.components.StringSelectMenu
 import kotlinx.coroutines.withTimeoutOrNull
-import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent
+import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent
 import net.dv8tion.jda.api.interactions.components.ActionRow
 import space.astrobot.Bot
 import space.astrobot.db.interactors.GuildsDBI
@@ -20,7 +20,7 @@ class Delete: SlashCommand(
 ) {
     override suspend fun execute(ctx: SlashCommandCTX) {
         val generators = ctx.guildDto.generators
-        val menu = SelectMenu(
+        val menu = StringSelectMenu(
             customId = IdManager.get(),
             placeholder = "Select the generator to delete",
             options = generators.mapIndexed { index, generatorDto ->
@@ -41,7 +41,7 @@ class Delete: SlashCommand(
         thanks to the withTimeoutOrNull method.
          */
         withTimeoutOrNull(60000) {
-            val event = Bot.jda.await<SelectMenuInteractionEvent> {
+            val event = Bot.jda.await<StringSelectInteractionEvent> {
                 it.componentId == menu.id
             }
 

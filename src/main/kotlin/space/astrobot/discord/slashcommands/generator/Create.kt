@@ -1,8 +1,8 @@
 package space.astrobot.discord.slashcommands.generator
 
 import dev.minn.jda.ktx.coroutines.await
-import net.dv8tion.jda.api.entities.Category
-import net.dv8tion.jda.api.entities.ChannelType
+import net.dv8tion.jda.api.entities.channel.ChannelType
+import net.dv8tion.jda.api.entities.channel.concrete.Category
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
 import space.astrobot.db.interactors.GuildsDBI

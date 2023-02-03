@@ -24,5 +24,5 @@ abstract class SlashCommand(
     val requiredBotPermissions: List<Permission> = parentSlashCommand?.requiredBotPermissions ?: emptyList()
 ): ExecutableSlashCommand {
     // Compiled path of the slash command (parent name if existing + self name)
-    val path = (parentSlashCommand?.name?.plus("/") ?: "") + name
+    val path = (parentSlashCommand?.name?.plus(" ") ?: "") + name
 }
